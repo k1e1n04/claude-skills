@@ -4,10 +4,11 @@ Claude Code 用スキルを開発・公開するリポジトリ。プラグイ�
 
 ## 構成
 
+- `agents/<agent-name>.md` — サブエージェント(frontmatter + システムプロンプト)
 - `skills/<skill-name>/SKILL.md` — スキル本体(`scripts/`, `references/`, `assets/` は任意)
 - `.claude-plugin/plugin.json` — プラグイン定義(`version` を管理)
 - `.claude-plugin/marketplace.json` — マーケットプレイス定義
-- `scripts/validate.py` — スキルと JSON の検証(標準ライブラリのみ)
+- `scripts/validate.py` — スキル・エージェントと JSON の検証(標準ライブラリのみ)
 - `.claude/rules/` — パス別のルール(スキル作成、依存、リリース)
 
 ## コマンド

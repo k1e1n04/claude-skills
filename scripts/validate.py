@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""skills/*/SKILL.md の frontmatter とマーケットプレイス定義を検証する(標準ライブラリのみ)。"""
+"""skills/*/SKILL.md と agents/*.md の frontmatter とマーケットプレイス定義を検証する(標準ライブラリのみ)。"""
 import json
 import re
 import sys
@@ -39,6 +39,22 @@ for d in sorted(p for p in skills_dir.iterdir() if p.is_dir()):
         errors.append(f"{d.name}: name とディレクトリ名が一致しません ({name!r})")
     if not desc or len(desc) > 1024:
         errors.append(f"{d.name}: description が空、または 1024 文字超です")
+
+agents_dir = ROOT / "agents"
+if agents_dir.is_dir():
+    for f in sorted(agents_dir.rglob("*.md")):
+        rel = f.relative_to(ROOT)
+        fm = parse_frontmatter(f.read_text(encoding="utf-8"))
+        if fm is None:
+            errors.append(f"{rel}: frontmatter がありません")
+            continue
+        name, desc = fm.get("name", ""), fm.get("description", "")
+        if not NAME_RE.match(name) or len(name) > 64:
+            errors.append(f"{rel}: name が不正です ({name!r})")
+        if name != f.stem:
+            errors.append(f"{rel}: name とファイル名が一致しません ({name!r})")
+        if not desc:
+            errors.append(f"{rel}: description が空です")
 
 for rel in (".claude-plugin/plugin.json", ".claude-plugin/marketplace.json"):
     try:

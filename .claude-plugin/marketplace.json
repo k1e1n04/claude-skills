@@ -1,6 +1,6 @@
 {
   "name": "k1e1n04-skills",
-  "description": "k1e1n04 の Claude Code スキル集",
+  "description": "k1e1n04 の Claude Code スキル・エージェント集",
   "owner": {
     "name": "k1e1n04"
   },
@@ -8,7 +8,7 @@
     {
       "name": "k1e1n04-skills",
       "source": "./",
-      "description": "k1e1n04 の Claude Code スキル集"
+      "description": "k1e1n04 の Claude Code スキル・エージェント集"
     }
   ]
 }

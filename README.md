@@ -1,6 +1,6 @@
 # claude-skills
 
-[Claude Code](https://claude.com/claude-code) 用スキル集。プラグイン／マーケットプレイスとして配布しています。
+[Claude Code](https://claude.com/claude-code) 用スキルとエージェントの集。プラグイン／マーケットプレイスとして配布しています。
 
 ## インストール
 
@@ -22,6 +22,15 @@
 | `hello-skill` | 動作確認用のサンプル(実スキル追加後に削除予定) |
 | `ux-design-for-architects` | API・設定・拡張機能の UX を 6 原則で設計・レビューする |
 
+## エージェント一覧
+
+| エージェント | 内容 |
+| --- | --- |
+| `steve-jobs-reviewer` | ジョブズの視点で成果物をレビューする(読み取り専用)。集中・体験・仕上げの 5 つのレンズで「削れ/直せ」を示す |
+
+インストール後は `@agent-k1e1n04-skills:steve-jobs-reviewer <レビュー対象>` で呼び出せます。
+「ジョブズ目線でレビューして」と頼めば Claude が自動で委譲することもあります。
+
 ## 開発
 
 ### リポジトリ構成
@@ -30,10 +39,11 @@
 .claude-plugin/
   plugin.json          # プラグイン定義(version を管理)
   marketplace.json     # マーケットプレイス定義
+agents/<agent-name>.md   # frontmatter(name, description, tools, ...) + システムプロンプト
 skills/<skill-name>/
   SKILL.md             # frontmatter(name, description) + 本文
   scripts/ references/ assets/   # 任意
-scripts/validate.py    # スキルと JSON の検証
+scripts/validate.py    # スキル・エージェントと JSON の検証
 .claude/rules/         # パス別ルール
 AGENTS.md              # エージェント向け指示(CLAUDE.md から import)
 ```
@@ -62,6 +72,12 @@ AGENTS.md              # エージェント向け指示(CLAUDE.md から import)
 
 3. ローカルで試す: `claude --plugin-dir .`
 4. README の一覧を更新し、`plugin.json` の `version` を上げて push する。
+
+### エージェントを追加する
+
+1. `agents/<agent-name>.md` を作成する(`name` はファイル名と一致、kebab-case)。
+2. `description` に「何をするか」+「いつ委譲するか」を書く。レビュー系は `tools` を読み取り系に絞る。
+3. 検証・ローカル試用はスキルと同じ。
 
 ### ルール
 
